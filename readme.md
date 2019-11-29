@@ -8,7 +8,7 @@ Comment Commencer?
 - Complétez l’installation de la plateforme Haskell.
 - Assurez vous d'avoir un éditeur de code tel que notepad++.
 Voilà, tous les outils nécessaire pour commencer son pret à être utilisés !
-Notez que les exemples de la première section seront réalisés avec le compilateur en ligne Haskell, disponible à l’adresse suivante : https://www.tutorialspoint.com/compile_haskell_online.php. La seconde partie sera par contre réalisée localement.
+Notez que les exemples de la première section seront réalisés avec le compilateur en ligne Haskell, disponible à l’adresse suivante : https://www.tutorialspoint.com/compile_haskell_online.php . La seconde partie sera par contre réalisée localement.
 
 Introduction
 ------------------------------------
@@ -111,8 +111,8 @@ main = do
 ```
 
 Division :
-```
 Toujours pareil, la division :
+```
 main = do 
    let var1 = 12 
    let var2 = 3 
@@ -127,7 +127,6 @@ Par exemple, si on veut afficher les valeurs de 1 à 10, on peut utiliser un sé
 De la même manière, on peut afficher toutes le lettres de l’alphabet en utilisant [a..z].
 Le code qui suit affiche les chiffres de 1 à 10 :
 ```
-Toujours pareil, la division :
 main = do 
    print [1..10]
 ```
@@ -173,7 +172,16 @@ main = do
 ```
 
 Je profite de l’exemple pour glisser un petit mot sur les conditions. Haskell support les if… else, avec autant de if que voulu avant le else.
-Notez que l’opérateur “==” signifie l’équivalence, et à l’opposé l’opérateur “/=” signifie la non équivalence.
+Notez que l’opérateur “==” signifie l’équivalence, et à l’opposé l’opérateur “/=” signifie la non équivalence. Et comme nous en somme à parler de la syntaxe, j'aimerais 
+vous parler d'un élément un peu particulier d'Haskell : le "!!", qu'il est important de comprendre pour la partie deux de ce tutoriel.
+Comme il n'y a pas de variable à proprement parler dans un langage fonctionnel, on ne peut pas accéder à l'élement précis d'une liste, comme en C++ avec une syntaxe du genre liste[x].
+Cependant, Haskell offre un moyen d'obtenir un résultat similaire, et c'est l'opérateur !!. Il s'agit en fait d'une fonction qui prend en paramètre d'entrée une liste et qui retourne un élément de cette liste. Exemple :
+```
+main = do 
+   print ([1..10] !! 4)
+```
+
+Le code affiche seuleument le cinquième élément de la liste.
 
 Le type char :
 Le type char représente un caractère. Un exemple :
