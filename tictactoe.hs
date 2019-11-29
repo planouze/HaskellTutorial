@@ -7,7 +7,6 @@ main = do
 doRound table curPlayerChar otherPlayerChar = do -- Have both players do their turns
   newTable <- playTurn curPlayerChar table
   let endStatus = checkEnd newTable
-  print endStatus
   if endStatus == -1 -- We have a winner!
     then do
       display newTable
@@ -35,6 +34,7 @@ checkEnd table = do
             else do -- There is currently no winner, but maybe there are no moves left either
               let board1D = table !! 0 ++ table !! 1 ++ table !! 2
               maximum [ maybe 0 id (readMaybe x :: Maybe Int) | x <- board1D]
+
 playTurn playerChar table = do
   display table
   putStrLn ("It is player " ++ playerChar ++ "'s turn.")
