@@ -8,6 +8,7 @@ Comment Commencer?
 - Complétez l’installation de la plateforme Haskell.
 - Assurez vous d'avoir un éditeur de code tel que notepad++.
 Voilà, tous les outils nécessaire pour commencer son pret à être utilisés !
+Notez que les exemples de la première section seront réalisés avec le compilateur en ligne Haskell, disponible à l’adresse suivante : https://www.tutorialspoint.com/compile_haskell_online.php. La seconde partie sera par contre réalisée localement.
 
 Introduction
 ------------------------------------
@@ -64,7 +65,6 @@ Programmation avec Haskell
 ------------------------------------
 Maintenant que nous savons ce qu’est la programmation fonctionnelle, il est temps de passer aux choses sérieuses !
 Nous allons voir ici les bases de la programmation avec Haskell.
-Les exemples de cette section seront réalisés avec le compilateur en ligne Haskell, disponible à l’adresse suivante : https://www.tutorialspoint.com/compile_haskell_online.php.
 
 Les opérations
 ------------------------------------
@@ -279,6 +279,42 @@ main = do
    putStrLn "The addition of the two numbers is:"  
    print(add 2 5)    --calling a function
 ```
+
+Les liste compréhension :
+C’est un aspect assez important d’Haskell, et qui sera utilisé dans la seconde partie de ce tutoriel. Le principe est d’effectuer des actions sur les données d’une liste et de stocker les résultats dans une nouvelle liste. Par exemple, si l’on souhaite accéder aux à chaque élément d’une liste de int et de multiplier ces éléments par deux, on pourrait le faire avec une list comprehension :
+```
+[x*2 | x <- [1..10]]
+```
+l’output est le suivant :
+```
+[2,4,6,8,10,12,14,16,18,20] 
+```
+
+Il est possible de rajouter des conditions. Les conditions (ou prédictions) viennent à la fin de la déclaration de la liste, et en sont séparé par un virgule. Disons que l’on veut seulement les éléments qui, une fois doublés, sont plus grand que 12 :
+```
+[x*2 | x <- [1..10], x*2 >= 12]
+```  
+On obtient l’output suivant :
+```
+[12,14,16,18,20] 
+```
+
+Un dernier exemple, un peu plus compliqué. Imaginons que l’on veut remplacer chaque nombre impair d’une liste inférieur à 10 par “BOOM!”, et chaque élément impair plus grand que 10 par “BANG!”, le tout à l’intérieur d’une fonction :
+```
+boomBangs xs = [ if x < 10 then "BOOM!" else "BANG!" | x <- xs, odd x]   
+boomBangs [7..13] 
+```
+On obtient le résultat :
+```
+["BOOM!","BOOM!","BANG!","BANG!"] 
+```
+
+Notez qu’il est possible d’avoir plusieurs conditions :
+```
+[ x | x <- [10..20], x /= 13, x /= 15, x /= 19] 
+```
+
+
 
 Techniquement, vous avez maintenant assez de connaissances pour attaquer la seconde partie de ce tutoriel. Cependant, nous n’avons fait que survoler Haskell et la programmation fonctionnelle, et j’aimerais discuter de quelques principes avant de conclure cette partie.
 
