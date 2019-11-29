@@ -395,11 +395,11 @@ surround buf list = do
 ```
 
 La fonction main va être la fonction principale qui est appelé lors de l'exécution du programme. La première ligne de la fonction main ici est plutôt intéressante puisqu'elle crée le tableau de base que notre jeu va utiliser
-Ce que cette ligne représente dans des termes plus simple est que pour chaque x entre 2 et 0 on construit une list ``[show (x*3+1), show (x*3+2), show (x*3+3)]`` et on l'ajoute à la liste parent. Ici les ``show`` sont utilisés pour que les chiffre résultant des formules deviennent des caractères.
+Ce que cette ligne représente dans des termes plus simple est que pour chaque x entre 2 et 0 on construit une list ``[show (x*3+1), show (x*3+2), show (x*3+3)]`` et on l'ajoute à la liste parent. Ici les ``show`` sont utilisés pour que les chiffres résultants des formules deviennent des caractères.
 
-La fonction surround crée une chaîne de caractères de tel que la chaîne ``buf`` se retrouve avant et après chaque élément de ``list`` sans répétition de ``buf``
+La fonction surround crée une chaîne de caractères de telle sorte que la chaîne ``buf`` se retrouve avant et après chaque élément de ``list`` sans répétition de ``buf``
 
-La fonction display, elle crée la chaîne représentant un tableau entier en utilisant ``\n +---+---+---+ \n`` autour de chaque ligne du tableau et `` | `` autour de chaque élément de chaque ligne pour donner le résultat suivant:
+La fonction display crée la chaîne représentant un tableau entier en utilisant ``\n +---+---+---+ \n`` autour de chaque ligne du tableau et `` | `` autour de chaque élément de chaque ligne pour donner le résultat suivant:
 
 ```
 +---+---+---+
@@ -413,7 +413,7 @@ La fonction display, elle crée la chaîne représentant un tableau entier en ut
 
 Etape 2 - L'input du joueur
 ---------------------------
-Maintenant que nous sommes capable de voir une représentation visuelle du tableau de jeu il est temps d'ajouter les fonctions de input. Ces fonctions vont prendre l'input du joueur et crée un nouveau tableau que nous allons ensuite montrer au deuxième joueur à son tour; pour l'instant nous allons seulement nous assurer d'être capable de prendre les inputs d'un joueur, le game loop va venir à l'étape 3.
+Maintenant que nous sommes capable de voir une représentation visuelle du tableau de jeu il est temps d'ajouter les fonctions de input. Ces fonctions vont prendre l'input du joueur et créer un nouveau tableau que nous allons ensuite montrer au deuxième joueur à son tour; pour l'instant nous allons seulement nous assurer d'être capable de prendre les inputs d'un joueur, le game loop va venir à l'étape 3.
 
 Pour ce faire nous allons rajouter les fonctions suivante:
 ```
@@ -449,11 +449,11 @@ Nous allons aussi modifier le main pour qu'il appelle
 newTable <- playTurn "x" table
 display table
 ```
-au lieux de ``display table`` pour que notre programme utilise ses nouvelles fonctionnalités. Le ``<-`` est pour indiquer que playTurn fait des actions de IO et donc que le retour de cette fonction doit être calculé au lieux d'être mit/pris en cache.
+au lieu de ``display table`` pour que notre programme utilise ses nouvelles fonctionnalités. Le ``<-`` est pour indiquer que playTurn fait des actions de IO et donc que le retour de cette fonction doit être calculé au lieu d'être mit/pris en cache.
 
 La fonction play Turn est celle qui va prendre l'input du joueur, faire la validation pour être sur que la sélection du joueur est bel et bien une sélection valide et si elle l'est va ensuite lancer la fonction doMove pour appliquer la sélection sur le tableau.
 
-Dans play Turn nous voyons plusieurs fonction de IO, tel que ``putStr``, ``putStrLn``, ``getLine`` en plus des ``Maybe``. ``putStr`` est exactement comme ``putStrLn`` mais n'en vois pas a la prochaine ligne après sont écrite à l'écran. ``getLine`` lit bien assurément une ligne de texte écrite dans le terminal, mais ici nous utilisons pas directement sa valeur. La raison étant que nous avons besoins de connaître quel était le chiffre entre et pas sa représentation en caractères, voici donc ou les ``Maybe`` entre en jeu. Ils sont un type de variable qui peuvent représenter soit le type assigner (``Int`` dans ce cas ci) ou rien. La façon d'extraire l'information d'un ``Maybe`` est avec la fonction ``maybe`` avec la valeur à utiliser si la ``Maybe`` est vide, une fonction a utiliser sur la valeur si elle est valide(ici id qui retourne simplement la valeur sans modification) et le ``Maybe`` lui-même.
+Dans play Turn nous voyons plusieurs fonction de IO, telle que ``putStr``, ``putStrLn``, ``getLine`` en plus des ``Maybe``. ``putStr`` est exactement comme ``putStrLn`` mais n'envoie pas à la prochaine ligne après son affichage à l'écran. ``getLine`` lit bien assurément une ligne de texte écrite dans le terminal, mais ici nous utilisons pas directement sa valeur. La raison étant que nous avons besoins de connaître quel était le chiffre entre et pas sa représentation en caractères, voici donc ou les ``Maybe`` entre en jeu. Ils sont un type de variable qui peuvent représenter soit le type assigner (``Int`` dans ce cas ci) ou rien. La façon d'extraire l'information d'un ``Maybe`` est avec la fonction ``maybe`` avec la valeur à utiliser si la ``Maybe`` est vide, une fonction à utiliser sur la valeur si elle est valide(ici id qui retourne simplement la valeur sans modification) et le ``Maybe`` lui-même.
 
 Maintenant que nous avons la sélection du joueur nous vérifions que la sélection est bien un chiffre valide en vérifiant si il est bien dans le range spécifié avec ``elem move [1..9]`` (soit entre 1 et 9). Si la sélection est valide alors on calcule la ligne et la colonne dans le tableau  en gardant en compte que la ligne 0 est en fait [7,8,9]. Ensuite, on s'assure que la position sélectionnée n'est pas déjà prise en vérifiant si ``((table !! row) !! col)`` est un chiffre, si oui alors il est libre et on peut appeler ``doMove`` avec la colonne et la ligne calcule plus tôt.
 
@@ -523,7 +523,7 @@ checkEnd table = do
               let board 1D = table !! 0 ++ table !! 1 ++ table !! 2
               maximum [ maybe 0 id (readMaybe x :: Maybe Int) | x <- board1D]
 ```
-Les list comprehension utilisé ici on l'aire plutôt effrayante mais leurs logique est plutôt simple à un haut niveau.
+Les list comprehension utilisées ici ont l'air plutôt effrayantes mais leurs logique est plutôt simple à un haut niveau.
 
 La base de tous les list comprehension utilisé est comme suit: Si on compte le nombre d'élément dans une ligne qui est égale au premier élément alors nous savons combien d'élément dans la ligne sont du même joueur. Puisque notre jeu de tic tac toe se jouer sur un tableau 3x3 alors il nous faut 2 elément pareille au premier pour dire que la ligne est entièrement contrôlé par le même joueur. Donc si nous vérifions ce compte pour chaque ligne du tableau nous savons si le joueur qui a fait la dernière action a gagner.
 
