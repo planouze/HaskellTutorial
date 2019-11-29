@@ -3,16 +3,59 @@ Haskell Tutorial
 
 Comment Commencer?
 ------------------
-- Allez à la page officiel de haskell et telecharger la bonne version pour votre système.
+- Allez à la page officielle de Haskell et téléchargez la bonne version pour votre système.
 	- https://www.haskell.org/platform/
-- Compléter l’installation de la plateforme Haskell.
-- Sassurer davoir un éditeur de code tel que notepad++.
-Voila, tout les outils necessaire pour commencer son pret a etre utilise.
+- Complétez l’installation de la plateforme Haskell.
+- Assurez vous d'avoir un éditeur de code tel que notepad++.
+Voilà, tous les outils nécessaire pour commencer son pret à être utilisés !
 
-Quel est le but de ce didacticielle?
+Introduction
 ------------------------------------
-Notre but aujourd'hui va être de faire un implémentation du jeu de tic-tac-toe en haskell dans un terminal de texte.
-Le jeu va etre tres simple, mais va aider à démontrer les technique utilisé pour la programmation fonctionnelle. Le jeu va se jouer en multijoueur local ou les deux joueur tour à tour vont entrer le chiffre correspondant à la case ou il désire jouer son pion sur un grille 3x3 ou la case en bas à gauche va être le 1 et la case en haut à droite le 9. L'addition d'un adversaire non joueur va être laissée comme exercice au lecteure.
+Le présent tutoriel vise à expliquer les particularités, l’utilité et le fonctionnement de la programmation fonctionnelle.
+Pour ce faire, l’étude sera découpé en deux grandes sections. La première vise à donner un aperçu de la technologie ainsi que d’apporter des connaissances basiques sur la programmation avec Haskell.
+La seconde partie sera une application plus concrète, où le lecteur sera amené à créer un petit jeu de tic tac toe avec les connaissances acquises dans la première section.
+Il est assumé ici que le lecteur dispose de connaissances de base en matières de programmation.
+
+Qu’est ce que la programmation fonctionnelle ?
+------------------------------------
+La programmation fonctionnelle est un paradigme de programmation, c’est à dire une manière de voir la programmation
+où on considère le calcul en tant qu’évaluation de fonctions mathématiques et non comme une modification de variables existantes ;
+les mutations de données ne sont pas supportées.
+Exemple 1 : fonction non fonctionnelle vs fonction fonctionnelle (python) :
+fonction non fonctionnelle :
+```
+a = 0
+def increment():
+    global a
+    a += 1
+```
+fonction fonctionnelle :
+```
+def increment(a):
+    return a + 1
+```
+
+Avec du code fonctionnel la valeur de sortie d’une fonction dépend uniquement de ses arguments.
+Passer un même argument produit donc toujours le même résultat ;
+on élimine les effets secondaire (side effects), ce qui rend en général un programme plus facilement compréhensible et surtout qui facilite la mise en place de tests unitaires.
+C’est en contraste avec la manière plus traditionnelle de programmer, dite impérative,
+où en plus des arguments l’état global du programme peut influencer sur la valeur de retour.
+
+Les caractéristiques principales des langages fonctionnels
+------------------------------------
+- Les langages fonctionnels sont pensés pour effectuer les calculs avec des fonctions mathématiques qui utilisent les expressions conditionnelles et la récursion.
+- La programmation fonctionnelle supporte le principe de fonctions d’ordre supérieur, c’est à dire une fonction capable de prendre en paramètre une autre fonction, ou de renvoyer une fonction en résultat.
+- La programmation fonctionnelle supporte l'évaluation paresseuse (lazy evaluation), où l'évaluation d'un paramètre de fonction ne se fait pas avant que ça ne soit nécessaire, et le résultat, une fois calculé, est préservé pour une utilisation ultérieure.
+- Un langage fonctionnel ne supporte pas les boucles, comme les if, for, ou switch.
+- Comme en programmation orientée objet, la programmation fonctionnelle supporte les principes d’encapsulation, d’abstraction, d’héritage et de polymorphisme.
+
+Comme la programmation supprime les effets secondaires, il est possible d’écrire du code 100% bug free.
+De part sa nature, la programmation fonctionnelle permet de faciliter la programmation parallèle.
+Les programmes fonctionnels consistent en unités indépendantes qui peuvent rouler de manière concurrente. Ultimement, cela offre une meilleure efficacité.
+La programmation fonctionnelle supporte les fonctions imbriquées.
+La programmation fonctionnelle supporte les évaluations paresseuses avec des constructeurs fonctionnels paresseux, comme les Lazy Lists, Lazy Maps, etc.
+
+------------------------------------
 
 Etape 1 - La base du jeu
 ------------------------
